@@ -1,7 +1,6 @@
 # coffee-store-api
 
-This is an REST API for a coffee store written in
-Kotlin and held by Docker. Some technologies and libs used:
+This is a REST API for a coffee store developed using Spring Boot and written in Kotlin. Some technologies and libs used:
 
 - Spring Boot
 - Kotlin
