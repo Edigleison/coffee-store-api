@@ -13,16 +13,15 @@ Kotlin and held by Docker. Some technologies and libs used:
 - MockK
 - Swagger
 
-To run the application is necessary execute the following steps:
+To run the application is necessary to execute the following steps:
 
-1. To build the docker image execute the command below.
+1. Build the docker image executing the command below:
 
 `docker build -t coffee-store-api .`
 
-2. To run the docker image execute the following command.
+2. Run the docker image executing the following command:
 
 `docker run -p 8080:8080 coffee-store-api`
 
-3. Now the application is running on port 8080. Is possible access the API documentation using the
-   url `http://localhost:8080/swagger-ui/index.html`
+3. Now the application is running on port 8080. Is possible to access the API documentation using the URL `http://localhost:8080/swagger-ui/index.html`
 
