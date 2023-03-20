@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "168cf962-26bb-4a85-bfb2-626bc8faeb5d",
+		"name": "Coffee-store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4068835"
+	},
+	"item": [
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "create-cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"drinkId\": \"55e6df68-c223-4f6f-8f1a-25798133e878\",\n    \"toppingsId\": [\"d3e920a0-52f6-42ae-bd8b-82842d50c8de\", \"edb85729-a26e-41bd-8839-6793cf5f54bb\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-cart-item",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"toppingsId\": [\"edb85729-a26e-41bd-8839-6793cf5f54bb\", \"d3e920a0-52f6-42ae-bd8b-82842d50c8de\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carts/{{cartId}}/items/{{lastCartItemId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carts",
+								"{{cartId}}",
+								"items",
+								"{{lastCartItemId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-cart-item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"drinkId\": \"9a2d22d6-ae6c-46cd-9923-c33882e7cc2f\",\n    \"toppingsId\": [\"4651e520-da4c-4c05-b4ec-2202ecd1b2bf\", \"a23a143c-c8c5-4e18-b4f3-78ece42c2a79\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carts/{{cartId}}/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carts",
+								"{{cartId}}",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carts/{{cartId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-cart-item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carts/{{cartId}}/items/{{lastCartItemId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carts",
+								"{{cartId}}",
+								"items",
+								"{{lastCartItemId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"if(jsonData.id){",
+							"    postman.setEnvironmentVariable(\"cartId\", jsonData.id);",
+							"    if (jsonData.items?.length){",
+							"        postman.setEnvironmentVariable(\"lastCartItemId\", jsonData.items[jsonData.items.length-1].id);",
+							"    } else {",
+							"        postman.setEnvironmentVariable(\"lastCartItemId\", null);",
+							"    }",
+							"}"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "create-drink",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Black Coffee\",\n    \"price\": 4,\n    \"type\": \"DRINK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-drink",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Black Coffee\",\n    \"price\": 5,\n    \"type\": \"DRINK\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/7253e4e0-56a9-47a4-b8e5-a571dc1dadb6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"7253e4e0-56a9-47a4-b8e5-a571dc1dadb6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-topping",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Chocolate sauce\",\n    \"price\": 5,\n    \"type\": \"TOPPING\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/7253e4e0-56a9-47a4-b8e5-a571dc1dadb6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"7253e4e0-56a9-47a4-b8e5-a571dc1dadb6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/f5725b20-3452-4b1f-985c-e6f84eb47d0f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"f5725b20-3452-4b1f-985c-e6f84eb47d0f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
