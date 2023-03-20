@@ -17,14 +17,14 @@ import java.util.stream.Collectors
 class ExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(RuntimeException::class)
     fun handleAll(exception: RuntimeException, request: WebRequest?): ResponseEntity<ErrorResponse> {
-        val message = "Error: " + exception.localizedMessage
+        val message = exception.localizedMessage
         val errorResponse = ErrorResponse(HttpStatus.BAD_REQUEST, message, "error occurred")
         return ResponseEntity(errorResponse, HttpHeaders(), errorResponse.status)
     }
 
     @ExceptionHandler(NotFound::class)
     fun handleNotFound(exception: NotFound, request: WebRequest?): ResponseEntity<ErrorResponse> {
-        val message = "Error: " + exception.localizedMessage
+        val message = exception.localizedMessage
         val errorResponse = ErrorResponse(HttpStatus.NOT_FOUND, message, "error occurred")
         return ResponseEntity(errorResponse, HttpHeaders(), errorResponse.status)
     }
